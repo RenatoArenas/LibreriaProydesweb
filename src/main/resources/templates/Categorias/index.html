@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+		<title>Libreria - Categorias</title>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+	</head>
+<body>
+	<main>
+		<div class="container pt-4">
+			<h3>Categorías</h3>
+			<div class="mt-3 row" style="height: 500px;">
+				<div class="col-6 d-flex justify-content-center align-items-center">
+					<form style="width: 70%;" th:action="@{/categorias/store}" th:method="POST" th:object="${categoria}">
+						<div style="width: 100%;">
+						    <label for="nameinput" class="form-label">Ingresar categoría</label>
+						    <input th:field="*{id}" type="hidden" th:value="-1" class="form-control" id="idinput">
+						    <input th:field="*{nombre}" type="text" class="form-control" id="nameinput" required>
+						    <button type="submit" class="btn btn-outline-primary mt-3" style="width: 100%;">Añadir</button>
+						</div>
+					</form>
+				</div>
+				<div class="col-6">
+					<span style="display: block; text-align: end; font-size: 12px; color:slategray;" th:text="${'Total de registros: ' + categorias.size}"></span>
+					<div class="d-flex justify-content-between align-items-center mt-2 p-2" th:each="categoria, ind : ${categorias}">
+						<div th:text="${ind.count + '. ' + categoria.nombre}"></div>
+						<div class="btn-group">
+							<button type="button" class="btn btn-link" th:onclick="editCategoria([[${categoria.id}]], [[${categoria.nombre}]])">Editar</button> 
+							<button type="button" class="btn btn-link" th:onclick="deleteCategoria([[${categoria.id}]], [[${categoria.nombre}]])">Eliminar</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+	
+	<div class="modal" tabindex="-1" id="modaledit">
+		<div class="modal-dialog modal-dialog-centered" >
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modaledit-title"></h5>
+				</div> 
+				<div class="modal-body">
+			    	<form style="width: 100%;" th:action="@{/categorias/update}" th:method="POST" th:object="${categoria}">
+						<div class="pb-4" style="width: 100%;">
+						    <label for="nameinputedit" class="form-label">Categoría</label>
+						    <input th:field="*{id}" type="hidden" th:value="-1" class="form-control" id="idinputedit">
+						    <input th:field="*{nombre}" type="text" class="form-control" id="nameinputedit" required>
+						    <button type="submit" class="btn btn-outline-primary mt-3" style="width: 100%;">Editar</button>
+						</div>
+					</form>
+			    </div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal" tabindex="-1" id="modaldelete">
+		<div class="modal-dialog modal-dialog-centered" >
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modaldelete-title"></h5>
+				</div> 
+				<div class="modal-body">
+			    	<p id="modal-confirm"></p>
+			    </div>
+			    <div class="modal-footer">
+					<form style="width: 100%;" th:action="@{/categorias/delete}" th:method="POST" th:object="${categoria}">
+						    <input th:field="*{id}" type="hidden" th:value="-1" class="form-control" id="idinputdelete">
+						    <button type="submit" class="btn btn-outline-danger" style="width: 100%;">Eliminar</button>
+						</div>
+					</form>
+			    </div>
+			</div>
+		</div>
+	</div>
+	
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script>
+	
+	function editCategoria(id, name) {
+		$("#modaledit").modal('show');
+		$("#modaledit-title").text("Editar categoria " + name);
+		$("#idinputedit").val(id);
+		$("#nameinputedit").val(name);
+	}
+	
+	function deleteCategoria(id, name) {
+		$("#modaldelete").modal('show');
+		$("#modaldelete-title").text("Eliminar categoria " + name);
+		$("#idinputdelete").val(id);
+		$("#modal-confirm").text("Está seguro(a) que desea eliminar la categoría" + name);
+	}
+	
+	$(document).ready(function() {
+	})
+</script>
+</body>
+</html>
