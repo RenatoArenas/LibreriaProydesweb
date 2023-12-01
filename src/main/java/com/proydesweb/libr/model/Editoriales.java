@@ -1,24 +1,20 @@
 package com.proydesweb.libr.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name="tb_editoriales")
 public class Editoriales {
 	
 	@Id
-	
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
-	@NotNull(message="El nombre de editoriales  es requerido")
-	@Column(name="nombre", unique=true)
+	@Column(name="nombre")
 	private String nombre;
 	
-	
+	@Column(name="estado")
+	private boolean estado;
 	
 	public int getId() {
 		return id;
@@ -33,7 +29,13 @@ public class Editoriales {
 		this.nombre = nombre;
 	}
 	
-	
+	public boolean isEstado() {
+		return estado;
+	}
+
+	public void setEstado(boolean estado) {
+		this.estado = estado;
+	}
 	
 
 }

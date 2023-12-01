@@ -2,17 +2,22 @@ package com.proydesweb.libr.model;
 
 import jakarta.persistence.*;
 
-
 @Entity
-@Table(name="tb_autores")
-public class Autores {
-	
+@Table(name="tb_clientes")
+public class Cliente {
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
 	@Column(name="nombre")
 	private String nombre;
+	
+	@Column(name="dni")
+	private String dni;
+	
+	@Column(name="celular")
+	private String celular;
 	
 	@Column(name="estado")
 	private boolean estado;
@@ -33,6 +38,22 @@ public class Autores {
 		this.nombre = nombre;
 	}
 
+	public String getDni() {
+		return dni;
+	}
+
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
+
+	public String getCelular() {
+		return celular;
+	}
+
+	public void setCelular(String celular) {
+		this.celular = celular;
+	}
+
 	public boolean isEstado() {
 		return estado;
 	}
@@ -44,6 +65,4 @@ public class Autores {
 	
 	
 	
-	
-
 }

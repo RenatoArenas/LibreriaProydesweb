@@ -9,17 +9,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.proydesweb.libr.model.Autores;
-import com.proydesweb.libr.repository.IAutoresRepository;
+import com.proydesweb.libr.model.Cliente;
+import com.proydesweb.libr.repository.IClientesRepository;
 
 @Controller
-public class AutoresController {
+public class ClientesController {
 	
 	@Autowired
-	private IAutoresRepository auto;
+	private IClientesRepository auto;
 	
 	
-	@GetMapping("/autores")
+	@GetMapping("/clientes")
 	public String index(Model model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
@@ -27,29 +27,29 @@ public class AutoresController {
 
 		model.addAttribute("username", username);
 		
-		model.addAttribute("autor", new Autores());
-		model.addAttribute("autores", auto.findAll());
-		return "Autores/index";
+		model.addAttribute("cliente", new Cliente());
+		model.addAttribute("clientes", auto.findAll());
+		return "Clientes/index";
 		
 	}
 	
-	@PostMapping("/autores/store")
-	public String store(@ModelAttribute Autores autores) {
-		autores.setEstado(true);
-		auto.save(autores);
-		return "redirect:/autores";
+	@PostMapping("/clientes/store")
+	public String store(@ModelAttribute Cliente clientes) {
+		clientes.setEstado(true);
+		auto.save(clientes);
+		return "redirect:/clientes";
 	}
 	
-	@PostMapping("/autores/update")
-	public String update(@ModelAttribute Autores autores) {
-		auto.save(autores);
-		return "redirect:/autores";
+	@PostMapping("/clientes/update")
+	public String update(@ModelAttribute Cliente clientes) {
+		auto.save(clientes);
+		return "redirect:/clientes";
 	}
 	
-	@PostMapping("/autores/delete")
-	public String delete(@ModelAttribute Autores autores) {
-		auto.delete(autores);
-		return "redirect:/autores";
+	@PostMapping("/clientes/delete")
+	public String delete(@ModelAttribute Cliente clientes) {
+		auto.delete(clientes);
+		return "redirect:/clientes";
 	}
 
 	

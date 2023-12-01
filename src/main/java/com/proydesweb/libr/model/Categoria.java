@@ -1,18 +1,21 @@
 package com.proydesweb.libr.model;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import jakarta.persistence.*;
+
 
 @Entity
 @Table(name="tb_categorias")
 public class Categoria {
 	
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
-	@NotNull(message="El nombre de la categoría es requerido")
-	@Column(name="nombre", unique=true)
+	@Column(name="nombre")
 	private String nombre;
+	
+	@Column(name="estado")
+	private boolean estado;
 
 	public int getId() {
 		return id;
@@ -30,4 +33,11 @@ public class Categoria {
 		this.nombre = nombre;
 	}
 	
+	public boolean isEstado() {
+		return estado;
+	}
+
+	public void setEstado(boolean estado) {
+		this.estado = estado;
+	}
 }
